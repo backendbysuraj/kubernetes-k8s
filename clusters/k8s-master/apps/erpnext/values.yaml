@@ -1,0 +1,25 @@
+mariadb:
+  enabled: false
+mariadb-subchart:
+  enabled: false
+
+dbHost: "galera-db.default.svc.cluster.local"
+dbPort: 6033
+dbRootUser: "root"
+dbExistingSecret: "proxysql-root-secret"
+dbExistingSecretPasswordKey: "mariadb-root-password"
+
+jobs:
+  configureBench:
+    enabled: true
+  createSite:
+    enabled: false
+  createMultipleSites:
+    enabled: true
+    dbType: "mariadb"
+    adminPassword: "Bizaxltest"
+    sites:
+      - name: "site1.company.local"
+        installApps: ["erpnext", "payments"]
+      - name: "site2.company.local"
+        installApps: ["erpnext", "hrms"]

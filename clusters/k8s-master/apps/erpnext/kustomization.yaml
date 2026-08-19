@@ -3,3 +3,10 @@ kind: Kustomization
 namespace: erpnext
 resources:
   - source.yaml
+  - helmrelease.yaml
+configMapGenerator:
+  - name: erpnext-values
+    files:
+      - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true

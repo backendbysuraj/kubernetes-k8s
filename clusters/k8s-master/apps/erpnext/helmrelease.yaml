@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: erpnext-prod
+  namespace: erpnext
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./erpnext
+      sourceRef:
+        kind: GitRepository
+        name: frappe-helm-chart
+        namespace: erpnext
+      reconcileStrategy: Revision
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: erpnext-values
+      valuesKey: values.yaml
