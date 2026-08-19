@@ -9,6 +9,11 @@ dbRootUser: "root"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
+persistence:
+  worker:
+    enabled: true
+    storageClass: "local-path"
+
 jobs:
   configureBench:
     enabled: true
