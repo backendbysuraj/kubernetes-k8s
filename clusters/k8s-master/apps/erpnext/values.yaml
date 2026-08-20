@@ -3,9 +3,9 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "galera-db.default.svc.cluster.local"
+dbHost: "192.168.0.133"
 dbPort: 6033
-dbRootUser: "root"
+dbRootUser: "appuser"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
