@@ -1,11 +1,16 @@
+image:
+  repository: benedictdockeracc/custom
+  tag: "16.2.0"
+  pullPolicy: IfNotPresent
+
 mariadb:
   enabled: false
 mariadb-subchart:
   enabled: false
 
 dbHost: "192.168.0.133"
-dbPort: 6033
-dbRootUser: "root"
+dbPort: 3306
+dbRootUser: "appuser"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
