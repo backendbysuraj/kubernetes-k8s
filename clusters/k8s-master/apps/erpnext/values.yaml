@@ -12,7 +12,7 @@ dbExistingSecretPasswordKey: "mariadb-root-password"
 persistence:
   worker:
     enabled: true
-    storageClass: "local-path"
+    storageClass: "nfs-client"
 
 jobs:
   configureBench:
