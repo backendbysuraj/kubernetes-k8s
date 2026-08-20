@@ -4,8 +4,8 @@ mariadb-subchart:
   enabled: false
 
 dbHost: "192.168.0.133"
-dbPort: 3306
-dbRootUser: "appuser"
+dbPort: 6033
+dbRootUser: "root"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
