@@ -33,3 +33,17 @@ jobs:
         installApps: ["erpnext", "payments"]
       - name: "site2.company.local"
         installApps: ["erpnext", "hrms"]
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: "$host"
+  hosts:
+    - host: site1.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: site2.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
