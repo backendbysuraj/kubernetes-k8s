@@ -5,3 +5,5 @@ resources:
   - namespace.yaml
   - source.yaml
   - helmrelease.yaml
+  - ipaddresspool.yaml
+  - l2advertisement.yaml
