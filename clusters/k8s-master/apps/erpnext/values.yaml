@@ -35,8 +35,10 @@ jobs:
         installApps: ["erpnext", "hrms"]
       - name: "site3.company.local"
         installApps: ["erpnext"]
+
 ingress:
   enabled: true
+  className: nginx
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: "$host"
   hosts:
@@ -52,6 +54,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
