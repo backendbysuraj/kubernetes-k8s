@@ -47,3 +47,24 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+
+nginx:
+  topologySpreadConstraints:
+    - maxSkew: 2
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/instance: erpnext-prod-nginx
+          app.kubernetes.io/name: erpnext-nginx
+
+worker:
+  gunicorn:
+    topologySpreadConstraints:
+      - maxSkew: 2
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: erpnext-prod-gunicorn
+            app.kubernetes.io/name: erpnext-gunicorn
