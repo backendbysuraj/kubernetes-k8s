@@ -33,7 +33,7 @@ jobs:
         installApps: ["erpnext", "payments"]
       - name: "site2.company.local"
         installApps: ["erpnext", "hrms"]
-     - name: "site3.company.local"
+      - name: "site3.company.local"
         installApps: ["erpnext"]
 ingress:
   enabled: true
