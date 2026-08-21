@@ -55,16 +55,15 @@ nginx:
       whenUnsatisfiable: ScheduleAnyway
       labelSelector:
         matchLabels:
-          app.kubernetes.io/instance: erpnext-prod-nginx
           app.kubernetes.io/name: erpnext-nginx
+          app.kubernetes.io/instance: erpnext-prod-nginx
 
 worker:
-  gunicorn:
-    topologySpreadConstraints:
-      - maxSkew: 2
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: erpnext-prod-gunicorn
-            app.kubernetes.io/name: erpnext-gunicorn
+  topologySpreadConstraints:
+    - maxSkew: 2
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: erpnext-gunicorn
+          app.kubernetes.io/instance: erpnext-prod-gunicorn
