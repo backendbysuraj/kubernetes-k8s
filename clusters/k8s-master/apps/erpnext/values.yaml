@@ -33,7 +33,8 @@ jobs:
         installApps: ["erpnext", "payments"]
       - name: "site2.company.local"
         installApps: ["erpnext", "hrms"]
-
+     - name: "site3.company.local"
+        installApps: ["erpnext"]
 ingress:
   enabled: true
   annotations:
@@ -47,7 +48,10 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-
+    - host: site3.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
