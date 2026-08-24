@@ -25,6 +25,7 @@ jobs:
   createSite:
     enabled: false
   createMultipleSites:
+    enabled: true
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
