@@ -42,7 +42,7 @@ jobs:
       - name: "site6.company.local"
         installApps: ["erpnext"]
   migrateMultipleSites:
-    enabled: false
+    enabled: true
     skipFailing: false
     sites:
       - name: "site1.company.local"
