@@ -25,7 +25,6 @@ jobs:
   createSite:
     enabled: false
   createMultipleSites:
-    enabled: true
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
@@ -41,8 +40,8 @@ jobs:
         installApps: ["erpnext"]
       - name: "site6.company.local"
         installApps: ["erpnext"]
-migrateMultipleSites:
-    enabled: false
+  migrateMultipleSites:
+    enabled: true
     skipFailing: false
     sites:
       - name: "site1.company.local"
@@ -52,7 +51,6 @@ migrateMultipleSites:
       - name: "site5.company.local"
       - name: "site6.company.local"
     backoffLimit: 0
-
 ingress:
   enabled: true
   className: nginx
