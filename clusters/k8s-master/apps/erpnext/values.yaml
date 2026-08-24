@@ -30,13 +30,15 @@ jobs:
     adminPassword: "Bizaxltest"
     sites:
       - name: "site1.company.local"
-        installApps: ["erpnext", "payments"]
+        installApps: ["erpnext"]
       - name: "site2.company.local"
-        installApps: ["erpnext", "hrms"]
+        installApps: ["erpnext"]
       - name: "site3.company.local"
         installApps: ["erpnext"]
       - name: "site4.company.local"
-        installApps: ["erpnext", "hrms"]
+        installApps: ["erpnext"]
+      - name: "site5.company.local"
+        installApps: ["erpnext"]
 ingress:
   enabled: true
   className: nginx
@@ -56,6 +58,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: site4.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: site5.company.local
       paths:
         - path: /
           pathType: ImplementationSpecific
