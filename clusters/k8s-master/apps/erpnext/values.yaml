@@ -1,6 +1,6 @@
 image:
-  repository: benedictdockeracc/custom
-  tag: "16.2.0"
+  repository: didin8080/didinfehp:latest
+  tag: latest
   pullPolicy: IfNotPresent
 
 mariadb:
@@ -30,15 +30,15 @@ jobs:
     adminPassword: "Bizaxltest"
     sites:
       - name: "site1.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms","payments"]
       - name: "site2.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms","payments"]
       - name: "site3.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms","payments"]
       - name: "site4.company.local"
         installApps: ["erpnext"]
       - name: "site5.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms","payments"]
       - name: "site6.company.local"
         installApps: ["erpnext"]
       - name: "site7.company.local"
