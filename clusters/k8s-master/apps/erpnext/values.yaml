@@ -39,6 +39,8 @@ jobs:
         installApps: ["erpnext"]
       - name: "site5.company.local"
         installApps: ["erpnext"]
+      - name: "site6.company.local"
+        installApps: ["erpnext"]
 ingress:
   enabled: true
   className: nginx
@@ -62,6 +64,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: site5.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: site6.company.local
       paths:
         - path: /
           pathType: ImplementationSpecific
