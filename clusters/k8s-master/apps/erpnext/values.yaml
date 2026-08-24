@@ -41,6 +41,18 @@ jobs:
         installApps: ["erpnext"]
       - name: "site6.company.local"
         installApps: ["erpnext"]
+migrateMultipleSites:
+    enabled: false
+    skipFailing: false
+    sites:
+      - name: "site1.company.local"
+      - name: "site2.company.local"
+      - name: "site3.company.local"
+      - name: "site4.company.local"
+      - name: "site5.company.local"
+      - name: "site6.company.local"
+    backoffLimit: 0
+
 ingress:
   enabled: true
   className: nginx
@@ -90,3 +102,4 @@ worker:
         matchLabels:
           app.kubernetes.io/name: erpnext-gunicorn
           app.kubernetes.io/instance: erpnext-prod-gunicorn
+
