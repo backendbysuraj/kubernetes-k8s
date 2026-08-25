@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: erpnext-prod-backup
+  namespace: erpnext
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: backup-sites
+            image: didin8080/didinfehp:latest
+            command: ["bash", "-c"]
+            args:
+              - >
+                for site in $(ls /home/frappe/frappe-bench/sites | grep -v -E "assets|apps.txt|common_site_config.json|currentsite.txt"); do
+                  bench --site "$site" backup --with-files;
+                done
+            volumeMounts:
+              - name: sites-dir
+                mountPath: /home/frappe/frappe-bench/sites
+          volumes:
+            - name: sites-dir
+              persistentVolumeClaim:
+                claimName: erpnext-prod

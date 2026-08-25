@@ -4,6 +4,7 @@ namespace: erpnext
 resources:
   - source.yaml
   - helmrelease.yaml
+  - backup-cronjob.yaml
 configMapGenerator:
   - name: erpnext-values
     files:
