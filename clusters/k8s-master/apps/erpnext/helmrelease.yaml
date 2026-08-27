@@ -25,3 +25,6 @@ spec:
     - kind: ConfigMap
       name: erpnext-values
       valuesKey: values.yaml
+    - kind: ConfigMap
+      name: erpnext-hpa-values
+      valuesKey: hpa-values.yaml

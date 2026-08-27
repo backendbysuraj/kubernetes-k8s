@@ -9,5 +9,8 @@ configMapGenerator:
   - name: erpnext-values
     files:
       - values.yaml
+  - name: erpnext-hpa-values
+    files:
+      - hpa-values.yaml
 generatorOptions:
   disableNameSuffixHash: true
