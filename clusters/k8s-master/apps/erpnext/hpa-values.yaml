@@ -20,7 +20,7 @@ worker:
         cpu: 50m
         memory: 256Mi
       limits:
-        cpu: 250m
+        cpu: 750m
         memory: 768Mi
     autoscaling:
       enabled: true
