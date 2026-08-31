@@ -1,5 +1,5 @@
 image:
-  repository: didin8080/didinfehp
+  repository: didin8080/totaltest
   tag: latest
   pullPolicy: IfNotPresent
 
