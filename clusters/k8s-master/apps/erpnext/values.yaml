@@ -40,7 +40,7 @@ jobs:
       - name: "site5.company.local"
         installApps: ["erpnext","hrms","payments"]
       - name: "site6.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms"]
       - name: "site7.company.local"
         installApps: ["erpnext","hrms"]
   migrateMultipleSites:
