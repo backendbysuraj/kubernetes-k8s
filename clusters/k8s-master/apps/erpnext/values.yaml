@@ -43,6 +43,8 @@ jobs:
         installApps: ["erpnext","hrms"]
       - name: "site7.company.local"
         installApps: ["erpnext","hrms"]
+      - name: "site8.company.local"
+        installApps: ["erpnext","hrms"]
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -85,6 +87,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: site7.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: site8.company.local
       paths:
         - path: /
           pathType: ImplementationSpecific
