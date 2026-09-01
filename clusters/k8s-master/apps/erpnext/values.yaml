@@ -36,13 +36,13 @@ jobs:
       - name: "site3.company.local"
         installApps: ["erpnext","hrms","payments"]
       - name: "site4.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext", "hrms"]
       - name: "site5.company.local"
         installApps: ["erpnext","hrms","payments"]
       - name: "site6.company.local"
         installApps: ["erpnext"]
       - name: "site7.company.local"
-        installApps: ["erpnext"]
+        installApps: ["erpnext","hrms"]
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -108,3 +108,19 @@ worker:
           app.kubernetes.io/name: erpnext-gunicorn
           app.kubernetes.io/instance: erpnext-prod-gunicorn
 
+valkey-cache:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+valkey-queue:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
