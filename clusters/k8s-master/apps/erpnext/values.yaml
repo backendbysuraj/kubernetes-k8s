@@ -29,32 +29,20 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "site1.company.local"
+      - name: "site11.company.local"
         installApps: ["erpnext","hrms","payments"]
-      - name: "site2.company.local"
+      - name: "site12.company.local"
         installApps: ["erpnext","hrms","payments"]
-      - name: "site3.company.local"
-        installApps: ["erpnext","hrms","payments"]
-      - name: "site4.company.local"
-        installApps: ["erpnext", "hrms"]
-      - name: "site5.company.local"
-        installApps: ["erpnext","hrms","payments"]
-      - name: "site6.company.local"
-        installApps: ["erpnext","hrms"]
-      - name: "site7.company.local"
-        installApps: ["erpnext","hrms"]
-      - name: "site8.company.local"
-        installApps: ["erpnext","hrms"]
-  migrateMultipleSites:
-    enabled: true
-    skipFailing: false
-    sites:
-      - name: "site1.company.local"
-      - name: "site2.company.local"
-      - name: "site3.company.local"
-      - name: "site4.company.local"
-      - name: "site5.company.local"
-      - name: "site6.company.local"
+#  migrateMultipleSites:
+ #   enabled: true
+  #  skipFailing: false
+   # sites:
+    #  - name: "site1.company.local"
+    #  - name: "site2.company.local"
+    #  - name: "site3.company.local"
+    #  - name: "site4.company.local"
+    #  - name: "site5.company.local"
+    #  - name: "site6.company.local"
     backoffLimit: 0
 ingress:
   enabled: true
