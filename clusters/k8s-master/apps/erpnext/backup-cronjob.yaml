@@ -6,7 +6,7 @@ metadata:
 spec:
   schedule: "0 2 * * *"
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 7
+  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: backup-sites
-            image: didin8080/didinfehp:latest
+            image: didin8080/frappe-build-test:1
             command: ["bash", "-c"]
             args:
               - >
