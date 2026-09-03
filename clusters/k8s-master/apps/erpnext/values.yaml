@@ -1,6 +1,6 @@
 image:
-  repository: didin8080/totaltest
-  tag: latest
+  repository: didin8080/frappe-build-test
+  tag: "1"
   pullPolicy: IfNotPresent
 
 mariadb:
