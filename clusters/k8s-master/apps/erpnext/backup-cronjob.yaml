@@ -14,15 +14,51 @@ spec:
       template:
         spec:
           restartPolicy: Never
-          containers:
+          initContainers:
           - name: backup-sites
             image: didin8080/frappe-build-test:1
             command: ["bash", "-c"]
             args:
               - >
-                for site in $(ls /home/frappe/frappe-bench/sites | grep -v -E "assets|apps.txt|common_site_config.json|currentsite.txt"); do
-                  bench --site "$site" backup --with-files;
-                done
+                if [ -n "$SITE_NAME" ]; then
+                  echo "Backing up single site: $SITE_NAME";
+                  bench --site "$SITE_NAME" backup --with-files;
+                else
+                  echo "Backing up all sites";
+                  for site in $(ls /home/frappe/frappe-bench/sites | grep -v -E "assets|apps.txt|common_site_config.json|currentsite.txt"); do
+                    bench --site "$site" backup --with-files;
+                  done
+                fi
+            env:
+              - name: SITE_NAME
+                value: ""
+            volumeMounts:
+              - name: sites-dir
+                mountPath: /home/frappe/frappe-bench/sites
+          containers:
+          - name: upload-to-s3
+            image: amazon/aws-cli:2.17.62
+            command: ["/bin/sh", "-c"]
+            args:
+              - >
+                set -e;
+                if [ -n "$SITE_NAME" ]; then
+                  aws s3 sync "/home/frappe/frappe-bench/sites/${SITE_NAME}/private/backups" \
+                    "s3://${S3_BUCKET}/erpnext-backups/${SITE_NAME}/" --only-show-errors;
+                  find "/home/frappe/frappe-bench/sites/${SITE_NAME}/private/backups" -mtime +3 -delete;
+                else
+                  for site_dir in /home/frappe/frappe-bench/sites/*/private/backups; do
+                    site=$(basename $(dirname $(dirname "$site_dir")));
+                    aws s3 sync "$site_dir" "s3://${S3_BUCKET}/erpnext-backups/${site}/" --only-show-errors;
+                    find "$site_dir" -mtime +3 -delete;
+                  done
+                fi
+            env:
+              - name: SITE_NAME
+                value: ""
+            envFrom:
+              - secretRef:
+                  name: erpnext-backup-s3
             volumeMounts:
               - name: sites-dir
                 mountPath: /home/frappe/frappe-bench/sites
