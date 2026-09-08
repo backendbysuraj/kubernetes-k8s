@@ -55,7 +55,6 @@ jobs:
       - name: "site4.company.local"
       - name: "site5.company.local"
       - name: "site6.company.local"
-      - name: "site10.test.site"
       - name: "site11.company.local"
       - name: "site12.company.local"
     backoffLimit: 0
@@ -94,10 +93,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: site8.company.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: site10.test.site
       paths:
         - path: /
           pathType: ImplementationSpecific
