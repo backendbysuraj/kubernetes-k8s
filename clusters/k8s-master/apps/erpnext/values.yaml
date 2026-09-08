@@ -67,6 +67,7 @@ jobs:
       - name: "site6.company.local"
       - name: "site10.test.site"
       - name: "site11.company.local"
+      - name: "site12.company.local"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -114,6 +115,11 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: site12.company.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
