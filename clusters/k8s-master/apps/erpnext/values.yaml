@@ -33,16 +33,6 @@ jobs:
         installApps: ["erpnext","hrms","payments"]
       - name: "site12.company.local"
         installApps: ["erpnext","hrms","payments"]
-#  migrateMultipleSites:
- #   enabled: true
-  #  skipFailing: false
-   # sites:
-    #  - name: "site1.company.local"
-    #  - name: "site2.company.local"
-    #  - name: "site3.company.local"
-    #  - name: "site4.company.local"
-    #  - name: "site5.company.local"
-    #  - name: "site6.company.local"
       - name: "site3.company.local"
         installApps: ["erpnext","hrms","payments"]
       - name: "site4.company.local"
