@@ -39,7 +39,8 @@ jobs:
         installApps: ["erpnext","hrms"]
       - name: "suraj.testsite"
         installApps: ["erpnext","hrms"]
-
+      - name: "blacky.testsite"
+        installApps: ["payment","hrms"]
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -49,6 +50,7 @@ jobs:
       - name: "demo2.site"
       - name: "demo4.site"
       - name: "suraj.testsite"
+      - name: "blacky.testsite"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -73,6 +75,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: suraj.testsite
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: blacky.testsite
       paths:
         - path: /
           pathType: ImplementationSpecific
