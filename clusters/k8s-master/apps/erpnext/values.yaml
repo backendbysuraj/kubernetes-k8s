@@ -33,6 +33,8 @@ jobs:
         installApps: ["erpnext","hrms"]
       - name: "sinchana-demo.site"
         installApps: ["erpnext","hrms"]
+      - name: "demo2.site"
+        installApps: ["erpnext","payment"]
 
   migrateMultipleSites:
     enabled: true
@@ -40,6 +42,7 @@ jobs:
     sites:
       - name: "demo.site"
       - name: "sinchana-demo.site"
+      - name: "demo2.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -56,7 +59,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
 
-
+    - host: demo2.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
