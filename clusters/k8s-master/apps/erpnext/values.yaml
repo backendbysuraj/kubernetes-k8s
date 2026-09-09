@@ -30,7 +30,7 @@ jobs:
     adminPassword: "Bizaxltest"
     sites:
       - name: "site.testsite"
-        installApps: ["frappe"]
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
