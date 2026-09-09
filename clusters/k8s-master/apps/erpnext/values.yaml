@@ -37,6 +37,8 @@ jobs:
         installApps: ["erpnext","payment"]
       - name: "demo4.site"
         installApps: ["erpnext","hrms"]
+      - name: "suraj.testsite"
+        installApps: ["erpnext","hrms"]
 
   migrateMultipleSites:
     enabled: true
@@ -46,6 +48,7 @@ jobs:
       - name: "demo3.site"
       - name: "demo2.site"
       - name: "demo4.site"
+      - name: "suraj.testsite"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -61,7 +64,6 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-
     - host: demo2.site
       paths:
         - path: /
@@ -70,6 +72,11 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: suraj.testsite
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
