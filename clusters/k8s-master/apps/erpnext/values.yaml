@@ -47,6 +47,10 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: blacky.testsite
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
