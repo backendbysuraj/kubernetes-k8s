@@ -31,7 +31,7 @@ jobs:
     sites:
       - name: "demo.site"
         installApps: ["erpnext","hrms"]
-     - name: "sinchana-demo.site"
+      - name: "sinchana-demo.site"
         installApps: ["erpnext","hrms"]
 
   migrateMultipleSites:
