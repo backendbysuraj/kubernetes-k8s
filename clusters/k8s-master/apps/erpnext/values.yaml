@@ -29,13 +29,13 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "demo7.testsite"
-        installApps: ["hrms", "payment"]
+      - name: "site.testsite"
+        installApps: [""]
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "demo7.testsite"
+      - name: "site.testsite"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -43,7 +43,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: "$host"
   hosts:
-    - host: demo7.testsite
+    - host: site.testsite
       paths:
         - path: /
           pathType: ImplementationSpecific
