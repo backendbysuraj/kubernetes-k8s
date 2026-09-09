@@ -29,28 +29,13 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "demo.site"
-        installApps: ["erpnext","hrms"]
-      - name: "demo3.site"
-        installApps: ["erpnext","hrms"]
-      - name: "demo2.site"
-        installApps: ["erpnext","payment"]
-      - name: "demo4.site"
-        installApps: ["erpnext","hrms"]
-      - name: "suraj.testsite"
-        installApps: ["erpnext","hrms"]
-      - name: "blacky.testsite"
-        installApps: ["payment","hrms"]
+      - name: "demo7.testsite"
+        installApps: ["hrms", "payment"]
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "demo.site"
-      - name: "demo3.site"
-      - name: "demo2.site"
-      - name: "demo4.site"
-      - name: "suraj.testsite"
-      - name: "blacky.testsite"
+      - name: "demo7.testsite"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -58,31 +43,10 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: "$host"
   hosts:
-    - host: demo.site
+    - host: demo7.testsite
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: demo3.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: demo2.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: demo4.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: suraj.testsite
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: blacky.testsite
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
