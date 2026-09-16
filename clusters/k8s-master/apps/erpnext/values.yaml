@@ -18,6 +18,8 @@ persistence:
   worker:
     enabled: true
     storageClass: "local-path"
+    accessModes:
+     - ReadWriteOnce
 
 jobs:
   configureBench:
