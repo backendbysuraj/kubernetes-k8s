@@ -14,10 +14,10 @@ dbRootUser: "appuser"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
-persistence:
-  worker:
-    enabled: true
-    storageClass: "nfs-client"
+#persistence:
+#  worker:
+#    enabled: true
+#    storageClass: "nfs-client"
 
 jobs:
   configureBench:
