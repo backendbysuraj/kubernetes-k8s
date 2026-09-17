@@ -33,7 +33,7 @@ jobs:
     sites:
       - name: "site.testsite"
         installApps: []
-      - name: "site.testsite"
+      - name: "erp2.testsite"
         installApps: []
   migrateMultipleSites:
     enabled: true
