@@ -31,7 +31,7 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "hebbal-test.site"
+      - name: "bentest.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
@@ -39,7 +39,7 @@ jobs:
     sites:
 #      - name: "site.testsite"
  #     - name: "openstack.site"
-      - name: "hebbal-test.site"
+      - name: "bentest.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -68,6 +68,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: didintest.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: bentest.site
       paths:
         - path: /
           pathType: ImplementationSpecific
