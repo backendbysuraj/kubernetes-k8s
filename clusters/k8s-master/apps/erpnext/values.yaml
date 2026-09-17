@@ -33,14 +33,14 @@ jobs:
     sites:
       - name: "site.testsite"
         installApps: []
-      - name: "erp2.testsite"
+      - name: "openstack.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
       - name: "site.testsite"
-      - name: "erp2.testsite"
+      - name: "openstack.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -56,7 +56,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: erp2.testsite
+    - host: openstack.site
       paths:
         - path: /
           pathType: ImplementationSpecific
