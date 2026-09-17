@@ -33,11 +33,14 @@ jobs:
     sites:
       - name: "site.testsite"
         installApps: []
+      - name: "site.testsite"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
       - name: "site.testsite"
+      - name: "erp2.testsite"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -50,6 +53,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: blacky.testsite
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: erp2.testsite
       paths:
         - path: /
           pathType: ImplementationSpecific
