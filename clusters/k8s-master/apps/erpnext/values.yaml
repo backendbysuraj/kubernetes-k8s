@@ -11,7 +11,7 @@ mariadb-subchart:
 dbHost: "192.168.1.123"
 dbPort: 3306
 dbRootUser: "root"
-dbExistingSecret: "proxysql-root-secret"
+dbExistingSecret: "galera-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
 persistence:
