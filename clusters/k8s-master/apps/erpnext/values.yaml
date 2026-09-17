@@ -8,10 +8,10 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "192.168.1.133"
+dbHost: "192.168.1.123"
 dbPort: 3306
-dbRootUser: "appuser"
-dbExistingSecret: "galera-root-secret"
+dbRootUser: "root"
+dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
 persistence:
@@ -31,19 +31,15 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "site.testsite"
-        installApps: []
-      - name: "openstack.site"
-        installApps: []
-      - name: "banglore.site"
+      - name: "hebbal.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "site.testsite"
-      - name: "openstack.site"
-      - name: "banglore.site"
+#      - name: "site.testsite"
+ #     - name: "openstack.site"
+      - name: "hebbal.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -64,6 +60,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: banglore.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: hebbal.site
       paths:
         - path: /
           pathType: ImplementationSpecific
