@@ -33,14 +33,14 @@ jobs:
     sites:
       - name: "bentest.site"
         installApps: []
-      - name: "platform.site"
+      - name: "platform2.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
       - name: "site.testsite"
-      - name: "platform.site"
+      - name: "platform2.site"
 #      - name: "site.testsite"
  #     - name: "openstack.site"
       - name: "bentest.site"
@@ -59,7 +59,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: platform.site
+    - host: platform2.site
       paths:
         - path: /
           pathType: ImplementationSpecific
