@@ -33,13 +33,16 @@ jobs:
     sites:
       - name: "bentest6.site"
         installApps: []
+      - name: "bottel.site"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "bentest6.site"
+      - name: "bottel.site"
+#      - name: "bentest6.site"
 #      - name: "site.testsite"
- #     - name: "openstack.site"
+#     - name: "openstack.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -80,6 +83,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: bentest6.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: bottel.site
       paths:
         - path: /
           pathType: ImplementationSpecific
