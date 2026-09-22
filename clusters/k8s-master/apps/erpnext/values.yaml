@@ -8,16 +8,18 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "192.168.0.133"
+dbHost: "192.168.1.123"
 dbPort: 3306
-dbRootUser: "appuser"
-dbExistingSecret: "proxysql-root-secret"
+dbRootUser: "root"
+dbExistingSecret: "galera-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
 persistence:
   worker:
     enabled: true
-    storageClass: "nfs-client"
+    storageClass: "local-path"
+    accessModes:
+     - ReadWriteOnce
 
 jobs:
   configureBench:
@@ -29,7 +31,7 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "site.testsite"
+      - name: "bentest.site"
         installApps: []
       - name: "platform.site"
         installApps: []
@@ -39,6 +41,9 @@ jobs:
     sites:
       - name: "site.testsite"
       - name: "platform.site"
+#      - name: "site.testsite"
+ #     - name: "openstack.site"
+      - name: "bentest.site"
     backoffLimit: 0
 ingress:
   enabled: true
@@ -55,6 +60,23 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: platform.site
+    - host: openstack.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: banglore.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: hebbal-test.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: didintest.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: bentest.site
       paths:
         - path: /
           pathType: ImplementationSpecific

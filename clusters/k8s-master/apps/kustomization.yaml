@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - erpnext
   - ingress-nginx
-  - metallb
