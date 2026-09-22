@@ -1,6 +1,6 @@
 image:
   repository: didin8080/frappe-build-test
-  tag: "2"
+  tag: "9"
   pullPolicy: IfNotPresent
 
 mariadb:
