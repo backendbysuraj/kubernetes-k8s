@@ -60,7 +60,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: platform.site
-    - host: openstack.site
       paths:
         - path: /
           pathType: ImplementationSpecific
