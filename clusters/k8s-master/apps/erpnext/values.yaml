@@ -31,12 +31,16 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "india.site"
+      - name: "mountain.site"
+        installApps: []
+      - name: "team-work.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
+      - name: "team-work.site"
+      - name: "mountain.site"
       - name: "india.site"
 #      - name: "bentest6.site"
 #      - name: "site.testsite"
@@ -89,6 +93,15 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: india.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: team-work.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+    - host: mountain.site
       paths:
         - path: /
           pathType: ImplementationSpecific
