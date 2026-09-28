@@ -8,10 +8,16 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "192.168.1.123"
-dbPort: 3306
-dbRootUser: "root"
-dbExistingSecret: "galera-root-secret"
+#dbHost: "192.168.1.123"
+#dbPort: 3306
+#dbRootUser: "root"
+#dbExistingSecret: "galera-root-secret"
+#dbExistingSecretPasswordKey: "mariadb-root-password"
+
+dbHost: "192.168.1.133"
+dbPort: 6033
+dbRootUser: "appuser"
+dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
 persistence:
@@ -34,6 +40,8 @@ jobs:
       - name: "mountain.site"
         installApps: []
       - name: "team-work.site"
+        installApps: []
+      - name: "proxytest.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
@@ -102,6 +110,10 @@ ingress:
           pathType: ImplementationSpecific
 
     - host: mountain.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: proxytest.site
       paths:
         - path: /
           pathType: ImplementationSpecific
