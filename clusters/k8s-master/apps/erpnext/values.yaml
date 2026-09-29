@@ -39,7 +39,7 @@ jobs:
     enabled: true
     skipFailing: false
     sites:
-      - name: "site.testsite"
+      - name: "proxy4.site"
     backoffLimit: 0
 ingress:
   enabled: true
