@@ -29,18 +29,18 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "site.testsite"
-        installApps: []
-      - name: "proxy.site"
-        installApps: []
-      - name: "proxy5.site"
-        installApps: []
+#      - name: "site.testsite"
+#        installApps: []
+#      - name: "proxy.site"
+#        installApps: []
+#      - name: "proxy5.site"
+#        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "proxy4.site"
-    backoffLimit: 0
+#      - name: "proxy4.site"
+#    backoffLimit: 0
 ingress:
   enabled: true
   className: nginx
@@ -64,6 +64,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: proxy4.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: proxy.site4.test
       paths:
         - path: /
           pathType: ImplementationSpecific
