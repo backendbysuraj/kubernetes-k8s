@@ -8,8 +8,8 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "192.168.0.133"
-dbPort: 3306
+dbHost: "192.168.0.136"
+dbPort: 6033
 dbRootUser: "appuser"
 dbExistingSecret: "proxysql-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
@@ -31,6 +31,8 @@ jobs:
     sites:
       - name: "site.testsite"
         installApps: []
+      - name: "proxy.site"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -48,6 +50,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: blacky.testsite
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: proxy.site
       paths:
         - path: /
           pathType: ImplementationSpecific
