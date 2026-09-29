@@ -23,9 +23,9 @@ dbExistingSecretPasswordKey: "mariadb-root-password"
 persistence:
   worker:
     enabled: true
-    storageClass: "local-path"
+    storageClass: "ceph-filesystem"
     accessModes:
-     - ReadWriteOnce
+     - ReadWriteMany
 
 jobs:
   configureBench:
