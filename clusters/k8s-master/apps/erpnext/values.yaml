@@ -33,6 +33,8 @@ jobs:
         installApps: []
       - name: "proxy.site"
         installApps: []
+      - name: "proxy5.site"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -54,6 +56,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: proxy.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: proxy5.site
       paths:
         - path: /
           pathType: ImplementationSpecific
