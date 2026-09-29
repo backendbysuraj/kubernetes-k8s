@@ -51,7 +51,7 @@ jobs:
     sites:
       - name: "team-work.site"
       - name: "mountain.site"
-      - name: "india.site"
+#      - name: "india.site"
 #      - name: "bentest6.site"
 #      - name: "site.testsite"
 #     - name: "openstack.site"
