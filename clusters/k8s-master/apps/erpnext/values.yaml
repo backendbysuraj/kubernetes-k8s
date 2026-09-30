@@ -45,6 +45,8 @@ jobs:
         installApps: []
       - name: "blue.site"
         installApps: []
+      - name: "orange.site"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
@@ -120,6 +122,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: blue.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: orange.site
       paths:
         - path: /
           pathType: ImplementationSpecific
