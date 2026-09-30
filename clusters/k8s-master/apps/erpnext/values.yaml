@@ -37,7 +37,7 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "pink.site"
+      - name: "blackpink.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
@@ -122,6 +122,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: pink.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+     - host: blackpink.site
       paths:
         - path: /
           pathType: ImplementationSpecific
