@@ -125,7 +125,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-     - host: blackpink.site
+    - host: blackpink.site
       paths:
         - path: /
           pathType: ImplementationSpecific
