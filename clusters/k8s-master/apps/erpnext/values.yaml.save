@@ -1,4 +1,4 @@
-image:
+\image:
   repository: didin8080/frappe-build-test
   tag: "1"
   pullPolicy: IfNotPresent
@@ -14,18 +14,12 @@ dbRootUser: "root"
 dbExistingSecret: "galera-root-secret"
 dbExistingSecretPasswordKey: "mariadb-root-password"
 
-#dbHost: "192.168.1.133"
-#dbPort: 6033
-#dbRootUser: "appuser"
-#dbExistingSecret: "proxysql-root-secret"
-#dbExistingSecretPasswordKey: "mariadb-root-password"
-
 persistence:
   worker:
     enabled: true
-    storageClass: "ceph-filesystem"
+    storageClass: "local-path"
     accessModes:
-     - ReadWriteMany
+     - ReadWriteOnce
 
 jobs:
   configureBench:
@@ -37,15 +31,17 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "pink.site"
+      - name: "mountain.site"
+        installApps: []
+      - name: "team-work.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-      - name: "pink.site"
-#      - name: "mountain.site"
-#      - name: "india.site"
+      - name: "team-work.site"
+      - name: "mountain.site"
+      - name: "india.site"
 #      - name: "bentest6.site"
 #      - name: "site.testsite"
 #     - name: "openstack.site"
@@ -106,22 +102,6 @@ ingress:
           pathType: ImplementationSpecific
 
     - host: mountain.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: proxytest.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: blue.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: orange.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: pink.site
       paths:
         - path: /
           pathType: ImplementationSpecific
