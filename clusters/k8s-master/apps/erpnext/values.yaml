@@ -43,7 +43,7 @@ jobs:
     enabled: true
     skipFailing: false
     sites:
-      - name: "pink.site"
+#      - name: "pink.site"
 #      - name: "mountain.site"
 #      - name: "india.site"
 #      - name: "bentest6.site"
