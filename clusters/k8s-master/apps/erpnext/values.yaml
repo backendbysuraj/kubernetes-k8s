@@ -44,10 +44,13 @@ jobs:
 #        installApps: []
 #      - name: "proxy5.site"
 #        installApps: []
+       - name: "sync.site"
+         installapps: []
   migrateMultipleSites:
     enabled: false
     skipFailing: false
     sites:
+       - name: "sync.site"
 #      - name: "proxy4.site"
 #    backoffLimit: 0
 ingress:
@@ -77,6 +80,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: proxy.site4.test
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: sync.site 
       paths:
         - path: /
           pathType: ImplementationSpecific
