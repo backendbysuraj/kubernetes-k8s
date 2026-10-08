@@ -7,6 +7,14 @@ mariadb:
   enabled: false
 mariadb-subchart:
   enabled: false
+mariadb-sts:
+  enabled: false
+postgresql:
+  enabled: false
+postgresql-subchart:
+  enabled: false
+postgresql-sts:
+  enabled: false
 
 dbHost: "192.168.0.136"
 dbPort: 6033
@@ -20,7 +28,7 @@ persistence:
     storageClass: "nfs-client"
 
 jobs:
-  configureBench:
+  configure:
     enabled: true
   createSite:
     enabled: false
@@ -28,6 +36,7 @@ jobs:
     enabled: true
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
+    backoffLimit: 3
     sites:
 #      - name: "site.testsite"
 #        installApps: []
@@ -36,7 +45,7 @@ jobs:
 #      - name: "proxy5.site"
 #        installApps: []
   migrateMultipleSites:
-    enabled: true
+    enabled: false
     skipFailing: false
     sites:
 #      - name: "proxy4.site"
