@@ -6,5 +6,5 @@ metadata:
 spec:
   interval: 30m
   ref:
-    branch: main
-  url: https://github.com/frappe/helm
+    branch: fix-create-multiple-sites-exit-status
+  url: https://github.com/backendbysuraj/helm
