@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: frappe-helm-chart
+  namespace: erpnext
+spec:
+  interval: 30m
+  ref:
+    branch: main
+  url: https://github.com/frappe/helm
