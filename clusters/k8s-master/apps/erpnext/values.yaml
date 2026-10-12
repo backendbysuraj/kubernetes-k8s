@@ -38,21 +38,16 @@ jobs:
     adminPassword: "Bizaxltest"
     backoffLimit: 3
     sites:
-#      - name: "site.testsite"
+       - name: "sync2.site"
+         installApps: []
+#      - name: "sync1.site"
 #        installApps: []
-#      - name: "proxy.site"
-#        installApps: []
-#      - name: "proxy5.site"
-#        installApps: []
-#       - name: "sync.site"
-#        installapps: []
-        - name: "sync1.site"
-        installApps: []
   migrateMultipleSites:
     enabled: false
     skipFailing: false
     sites:
-       - name: "sync1.site"
+       - name: "sync2.site"
+#       - name: "sync1.site"
 #      - name: "proxy4.site"
 #    backoffLimit: 0
 ingress:
@@ -90,6 +85,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: sync1.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: sync2.site
       paths:
         - path: /
           pathType: ImplementationSpecific
