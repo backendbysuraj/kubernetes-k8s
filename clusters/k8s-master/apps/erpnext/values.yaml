@@ -31,7 +31,7 @@ jobs:
   configure:
     enabled: true
   createSite:
-    enabled: false
+    enabled: true
   createMultipleSites:
     enabled: true
     dbType: "mariadb"
