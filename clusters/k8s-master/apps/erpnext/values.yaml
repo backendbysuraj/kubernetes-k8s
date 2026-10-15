@@ -38,7 +38,7 @@ jobs:
     adminPassword: "Bizaxltest"
     backoffLimit: 3
     sites:
-        - name: "sync5.site"
+        - name: "sync6.site"
           installApps: []
 #       - name: "sync4.site"
 #         installApps: []
@@ -48,7 +48,7 @@ jobs:
     enabled: false
     skipFailing: false
     sites:
-       - name: "sync5.site"
+       - name: "sync6.site"
 #       - name: "sync1.site"
 #      - name: "proxy4.site"
 #    backoffLimit: 0
@@ -99,6 +99,10 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
     - host: sync5.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: sync6.site
       paths:
         - path: /
           pathType: ImplementationSpecific
