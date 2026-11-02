@@ -8,11 +8,11 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
-dbHost: "192.168.1.123"
-dbPort: 3306
-dbRootUser: "root"
-dbExistingSecret: "galera-root-secret"
-dbExistingSecretPasswordKey: "mariadb-root-password"
+dbHost: "proxysql.database.svc.cluster.local"
+dbPort: 6033
+dbRootUser: "frappe_admin"
+dbExistingSecret: "frappe-db-root"
+dbExistingSecretPasswordKey: "password"
 
 #dbHost: "192.168.1.133"
 #dbPort: 6033
@@ -37,7 +37,9 @@ jobs:
     dbType: "mariadb"
     adminPassword: "Bizaxltest"
     sites:
-      - name: "blackpink.site"
+#      - name: "blackpink.site"
+#        installApps: []
+      - name: "galera1.site"
         installApps: []
   migrateMultipleSites:
     enabled: true
@@ -56,79 +58,83 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: "$host"
   hosts:
-    - host: site.testsite
+    - host: galera1.site
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: blacky.testsite
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: platform2.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: banglore.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: teamwork.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: hebbal-test.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: didintest.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: bentest.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: bentest5.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: bentest6.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: india.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: team-work.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+#    - host: site.testsite
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blacky.testsite
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: platform2.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: banglore.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: teamwork.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: hebbal-test.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: didintest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest5.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest6.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: india.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: team-work.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
 
-    - host: mountain.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: proxytest.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: blue.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: orange.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: pink.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: blackpink.site
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+#    - host: mountain.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: proxytest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blue.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: orange.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: pink.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blackpink.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
