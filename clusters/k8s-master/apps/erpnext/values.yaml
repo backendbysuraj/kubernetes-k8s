@@ -41,11 +41,13 @@ jobs:
 #        installApps: []
       - name: "galera1.site"
         installApps: []
+      - name: "galera2.site"
+        installApps: []
   migrateMultipleSites:
     enabled: true
     skipFailing: false
     sites:
-#      - name: "pink.site"
+      - name: "galera2.site"
 #      - name: "mountain.site"
 #      - name: "india.site"
 #      - name: "bentest6.site"
@@ -62,6 +64,11 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: galera2.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
 #    - host: site.testsite
 #      paths:
 #        - path: /
