@@ -1,0 +1,180 @@
+image:
+  repository: didin8080/frappe-build-test
+  tag: "1"
+  pullPolicy: IfNotPresent
+
+mariadb:
+  enabled: false
+mariadb-subchart:
+  enabled: false
+
+dbHost: "proxysql.database.svc.cluster.local"
+dbPort: 6033
+dbRootUser: "frappe_admin"
+dbExistingSecret: "frappe-db-root"
+dbExistingSecretPasswordKey: "password"
+
+#dbHost: "192.168.1.133"
+#dbPort: 6033
+#dbRootUser: "appuser"
+#dbExistingSecret: "proxysql-root-secret"
+#dbExistingSecretPasswordKey: "mariadb-root-password"
+
+persistence:
+  worker:
+    enabled: true
+    storageClass: "ceph-filesystem"
+    accessModes:
+     - ReadWriteMany
+
+jobs:
+  configureBench:
+    enabled: true
+  createSite:
+    enabled: false
+  createMultipleSites:
+    enabled: true
+    dbType: "mariadb"
+    adminPassword: "Bizaxltest"
+    sites:
+#      - name: "blackpink.site"
+#        installApps: []
+      - name: "galera1.site"
+        installApps: []
+      - name: "galera2.site"
+        installApps: []
+  migrateMultipleSites:
+    enabled: true
+    skipFailing: false
+    sites:
+      - name: "galera2.site"
+#      - name: "mountain.site"
+#      - name: "india.site"
+#      - name: "bentest6.site"
+#      - name: "site.testsite"
+#     - name: "openstack.site"
+    backoffLimit: 0
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: "$host"
+  hosts:
+    - host: galera1.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: galera2.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+#    - host: site.testsite
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blacky.testsite
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: platform2.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: banglore.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: teamwork.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: hebbal-test.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: didintest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest5.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: bentest6.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: india.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: team-work.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+
+#    - host: mountain.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: proxytest.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blue.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: orange.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: pink.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+#    - host: blackpink.site
+#      paths:
+#        - path: /
+#          pathType: ImplementationSpecific
+nginx:
+  topologySpreadConstraints:
+    - maxSkew: 2
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: erpnext-nginx
+          app.kubernetes.io/instance: erpnext-prod-nginx
+
+worker:
+  topologySpreadConstraints:
+    - maxSkew: 2
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: erpnext-gunicorn
+          app.kubernetes.io/instance: erpnext-prod-gunicorn
+
+valkey-cache:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+valkey-queue:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi

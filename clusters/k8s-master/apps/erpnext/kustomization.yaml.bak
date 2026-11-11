@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: erpnext
+resources:
+  - namespace.yaml
+  - source.yaml
+  - helmrelease.yaml
+  - backup-cronjob.yaml
+configMapGenerator:
+  - name: erpnext-values
+    files:
+      - values.yaml
+  - name: erpnext-hpa-values
+    files:
+      - hpa-values.yaml
+generatorOptions:
+  disableNameSuffixHash: true

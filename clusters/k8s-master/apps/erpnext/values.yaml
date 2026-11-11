@@ -8,52 +8,63 @@ mariadb:
 mariadb-subchart:
   enabled: false
 
+# ---- ProxySQL: used by the apps, by configureBench and by the validate-config init container ----
 dbHost: "proxysql.database.svc.cluster.local"
 dbPort: 6033
 dbRootUser: "frappe_admin"
 dbExistingSecret: "frappe-db-root"
 dbExistingSecretPasswordKey: "password"
 
-#dbHost: "192.168.1.133"
-#dbPort: 6033
-#dbRootUser: "appuser"
-#dbExistingSecret: "proxysql-root-secret"
-#dbExistingSecretPasswordKey: "mariadb-root-password"
+# ---- Direct Galera: used ONLY by `bench new-site` (bypasses ProxySQL) ----
+galeraHost: "galera.database.svc.cluster.local"   # CHANGE ME: your real Galera service / VIP
+galeraPort: 3306
+
+# ---- Secret holding the ProxySQL sync credentials (must exist in this release's namespace) ----
+# keys: sync_user, sync_password, radmin_user, radmin_password
+proxysqlSync:
+  existingSecret: "proxysql-sync"
 
 persistence:
   worker:
     enabled: true
     storageClass: "ceph-filesystem"
     accessModes:
-     - ReadWriteMany
+      - ReadWriteMany
 
 jobs:
   configureBench:
     enabled: true
+
+  # Keep disabled. If this is true, createMultipleSites is suppressed
+  # (the multi-site template has `not createSite.enabled` in its condition).
   createSite:
     enabled: false
+
   createMultipleSites:
-    enabled: true
+    enabled: false
+    jobName: "erpnext-create-sites"   # fixed name instead of the timestamp name
     dbType: "mariadb"
-    adminPassword: "Bizaxltest"
+    backoffLimit: 3                   # safe: the script is idempotent
+    forceCreate: false                # never set true in production, --force drops an existing site
+    adminPassword: "Bizaxltest"       # better: use the existing-secret pair below
+    # adminExistingSecret: "frappe-site-admin"
+    # adminExistingSecretKey: "password"
+    annotations:
+      helm.sh/hook: post-install,post-upgrade
+      helm.sh/hook-delete-policy: before-hook-creation
     sites:
-#      - name: "blackpink.site"
-#        installApps: []
       - name: "galera1.site"
         installApps: []
       - name: "galera2.site"
         installApps: []
+
   migrateMultipleSites:
     enabled: true
     skipFailing: false
-    sites:
-      - name: "galera2.site"
-#      - name: "mountain.site"
-#      - name: "india.site"
-#      - name: "bentest6.site"
-#      - name: "site.testsite"
-#     - name: "openstack.site"
     backoffLimit: 0
+    sites:                            # list only sites that already exist
+      - name: "galera2.site"
+
 ingress:
   enabled: true
   className: nginx
@@ -69,79 +80,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
 
-#    - host: site.testsite
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: blacky.testsite
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: platform2.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: banglore.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: teamwork.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: hebbal-test.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: didintest.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: bentest.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: bentest5.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: bentest6.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: india.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: team-work.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-
-#    - host: mountain.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: proxytest.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: blue.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: orange.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: pink.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
-#    - host: blackpink.site
-#      paths:
-#        - path: /
-#          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
@@ -164,17 +102,9 @@ worker:
 
 valkey-cache:
   resources:
-    requests:
-      cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: 200m
-      memory: 256Mi
+    requests: {cpu: 50m, memory: 128Mi}
+    limits:   {cpu: 200m, memory: 256Mi}
 valkey-queue:
   resources:
-    requests:
-      cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: 200m
-      memory: 256Mi
+    requests: {cpu: 50m, memory: 128Mi}
+    limits:   {cpu: 200m, memory: 256Mi}

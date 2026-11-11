@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: erpnext-create-sites
+  namespace: erpnext
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: enabled     # lets Flux recreate the Job when its spec changes
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext: {runAsUser: 1000, runAsGroup: 1000, fsGroup: 1000}   # copy from your gunicorn Deployment
+      initContainers:
+      - name: wait-for-config
+        image: didin8080/frappe-build-test:1
+        command: ["bash", "-c"]
+        args:
+        - |
+          for i in $(seq 1 120); do
+            jq -e '.db_host and .redis_cache and .redis_queue' sites/common_site_config.json >/dev/null 2>&1 && exit 0
+            echo "waiting for sites/common_site_config.json"; sleep 5
+          done
+          exit 1
+        volumeMounts:
+        - {name: sites-dir, mountPath: /home/frappe/frappe-bench/sites}
+      containers:
+      - name: create-sites
+        image: didin8080/frappe-build-test:1
+        imagePullPolicy: IfNotPresent
+        command: ["bash", "-c"]
+        args:
+        - |
+          set -uo pipefail
+          degraded=0
+          export LOCK_FILE=/home/frappe/frappe-bench/logs/proxysql-sync.lock
+          for SITE in ${SITES}; do
+            if [[ -f "sites/${SITE}/site_config.json" ]]; then
+              echo "Site ${SITE} already exists, skipping creation"
+            else
+              echo "Creating ${SITE} (direct to Galera)"
+              if ! bench new-site "${SITE}" \
+                    --no-mariadb-socket \
+                    --db-type="${DB_TYPE}" \
+                    --db-host="${GALERA_HOST}" --db-port="${GALERA_PORT}" \
+                    --admin-password="${ADMIN_PASSWORD}" \
+                    --mariadb-root-username="${DB_ROOT_USER}" \
+                    --mariadb-root-password="${DB_ROOT_PASSWORD}"; then
+                echo "ERROR: creation of ${SITE} failed"; degraded=1; continue
+              fi
+            fi
+            bash /scripts/finalize-site.sh "${SITE}" || { echo "WARN: ${SITE} not behind ProxySQL yet"; degraded=1; }
+          done
+          rm -f currentsite.txt
+          exit ${degraded}
+        env:
+        - {name: SITES,         value: "galera1.site galera2.site"}   # edit this list to add sites
+        - {name: SCRIPTS_REV,   value: "1"}                          # bump to force a re-run after script changes
+        - {name: DB_TYPE,       value: mariadb}
+        - {name: DB_HOST,       value: proxysql.database.svc.cluster.local}
+        - {name: DB_PORT,       value: "6033"}
+        - {name: GALERA_HOST,   value: "<galera-server-ip-or-dns>"}
+        - {name: GALERA_PORT,   value: "3306"}
+        - {name: PX_ADMIN_PORT, value: "6032"}
+        - {name: DB_ROOT_USER,  value: frappe_admin}
+        - name: DB_ROOT_PASSWORD
+          valueFrom: {secretKeyRef: {name: frappe-db-root, key: password}}
+        - name: ADMIN_PASSWORD
+          valueFrom: {secretKeyRef: {name: frappe-site-admin, key: password}}
+        - name: SYNC_USER
+          valueFrom: {secretKeyRef: {name: proxysql-sync, key: sync_user}}
+        - name: SYNC_PW
+          valueFrom: {secretKeyRef: {name: proxysql-sync, key: sync_password}}
+        - name: PX_ADMIN_USER
+          valueFrom: {secretKeyRef: {name: proxysql-sync, key: radmin_user}}
+        - name: PX_ADMIN_PW
+          valueFrom: {secretKeyRef: {name: proxysql-sync, key: radmin_password}}
+        volumeMounts:
+        - {name: sites-dir, mountPath: /home/frappe/frappe-bench/sites}
+        - {name: logs,      mountPath: /home/frappe/frappe-bench/logs}
+        - {name: scripts,   mountPath: /scripts}
+      volumes:
+      - name: sites-dir
+        persistentVolumeClaim: {claimName: erpnext-prod}     # verify: kubectl -n erpnext get pvc
+      - name: logs
+        emptyDir: {}
+      - name: scripts
+        configMap: {name: proxysql-scripts}

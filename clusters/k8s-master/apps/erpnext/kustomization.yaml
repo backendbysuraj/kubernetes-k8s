@@ -6,6 +6,7 @@ resources:
   - source.yaml
   - helmrelease.yaml
   - backup-cronjob.yaml
+  - create-sites-job.yaml          # new
 configMapGenerator:
   - name: erpnext-values
     files:
@@ -13,5 +14,9 @@ configMapGenerator:
   - name: erpnext-hpa-values
     files:
       - hpa-values.yaml
+  - name: proxysql-scripts         # new
+    files:
+      - scripts/ensure-proxysql-user.sh
+      - scripts/finalize-site.sh
 generatorOptions:
   disableNameSuffixHash: true
