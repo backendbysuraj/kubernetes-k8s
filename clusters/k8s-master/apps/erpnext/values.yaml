@@ -27,7 +27,7 @@ proxysqlSync:
 persistence:
   worker:
     enabled: true
-    storageClass: "ceph-filesystem"
+    storageClass: "ceph-cephfs"
     accessModes:
       - ReadWriteMany
 
