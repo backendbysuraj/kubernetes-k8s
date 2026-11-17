@@ -54,7 +54,7 @@ spec:
           rm -f currentsite.txt
           exit ${degraded}
         env:
-        - {name: SITES,         value: "galera3.site galera4.site"}   # edit this list to add sites
+        - {name: SITES,         value: "galera3.site galera4.site galera5.site"}   # edit this list to add sites
         - {name: SCRIPTS_REV,   value: "1"}                          # bump to force a re-run after script changes
         - {name: DB_TYPE,       value: mariadb}
         - {name: DB_HOST,       value: proxysql.database.svc.cluster.local}

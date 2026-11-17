@@ -79,6 +79,10 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: galera5.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 
 nginx:
   topologySpreadConstraints:
