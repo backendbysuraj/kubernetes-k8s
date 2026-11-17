@@ -41,7 +41,7 @@ jobs:
     enabled: false
 
   createMultipleSites:
-    enabled: false
+    enabled: true
     jobName: "erpnext-create-sites"   # fixed name instead of the timestamp name
     dbType: "mariadb"
     backoffLimit: 3                   # safe: the script is idempotent
