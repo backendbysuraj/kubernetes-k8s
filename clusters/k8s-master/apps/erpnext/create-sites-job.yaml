@@ -54,12 +54,12 @@ spec:
           rm -f currentsite.txt
           exit ${degraded}
         env:
-        - {name: SITES,         value: "galera1.site galera2.site"}   # edit this list to add sites
+        - {name: SITES,         value: "galera3.site galera4.site"}   # edit this list to add sites
         - {name: SCRIPTS_REV,   value: "1"}                          # bump to force a re-run after script changes
         - {name: DB_TYPE,       value: mariadb}
         - {name: DB_HOST,       value: proxysql.database.svc.cluster.local}
         - {name: DB_PORT,       value: "6033"}
-        - {name: GALERA_HOST,   value: "<galera-server-ip-or-dns>"}
+        - {name: GALERA_HOST,   value: "192.168.0.203"}
         - {name: GALERA_PORT,   value: "3306"}
         - {name: PX_ADMIN_PORT, value: "6032"}
         - {name: DB_ROOT_USER,  value: frappe_admin}
