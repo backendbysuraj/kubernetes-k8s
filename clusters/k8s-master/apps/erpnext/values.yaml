@@ -53,9 +53,9 @@ jobs:
       helm.sh/hook: post-install,post-upgrade
       helm.sh/hook-delete-policy: before-hook-creation
     sites:
-      - name: "galera1.site"
+      - name: "galera3.site"
         installApps: []
-      - name: "galera2.site"
+      - name: "galera4.site"
         installApps: []
 
   migrateMultipleSites:
@@ -71,11 +71,11 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: "$host"
   hosts:
-    - host: galera1.site
+    - host: galera3.site
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: galera2.site
+    - host: galera4.site
       paths:
         - path: /
           pathType: ImplementationSpecific
