@@ -83,7 +83,14 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-
+    - host: proxytest.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: shardtest1.site
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 nginx:
   topologySpreadConstraints:
     - maxSkew: 2
